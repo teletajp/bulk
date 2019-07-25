@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "command_box.h"
 #include "console_printer.h"
 #include "file_printer.h"
