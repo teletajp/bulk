@@ -17,6 +17,7 @@ CommandBox::CommandBox(uint32_t max_command):IBox(max_command), state_(State::wa
 
 CommandBox::~CommandBox()
 {
+    Proccess();
 }
 bool CommandBox::OnRead(const std::string & el)
 {
@@ -105,20 +106,23 @@ bool CommandBox::OnRead(std::string && el)
 }
 bool CommandBox::Proccess()
 {
-    std::unique_ptr<IPrinter<std::string>> console = std::make_unique<ConsolePrinter>();
-    std::unique_ptr<IPrinter<std::string>> file = std::make_unique<FilePrinter>("bulk" + std::to_string(start_block_time_) + ".log");
-    std::string data = "bulk: ";
-    for (const auto& el : commands_)
+    if (!commands_.empty())
     {
-        data += el;
-        if (count_ != 1)
-            data += ",";
-        else
-            data += "\n";
-        --count_;
+        std::unique_ptr<IPrinter<std::string>> console = std::make_unique<ConsolePrinter>();
+        std::unique_ptr<IPrinter<std::string>> file = std::make_unique<FilePrinter>("bulk" + std::to_string(start_block_time_) + ".log");
+        std::string data = "bulk: ";
+        for (const auto& el : commands_)
+        {
+            data += el;
+            if (count_ != 1)
+                data += ",";
+            else
+                data += "\n";
+            --count_;
+        }
+        console->Print(data);
+        file->Print(data);
     }
-    console->Print(data);
-    file->Print(data);
     return true;
 }
 }

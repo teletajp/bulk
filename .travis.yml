@@ -17,6 +17,8 @@ script:
 - cmake --build . --target package
 - seq 0 9 | ./bulk 1
 - seq 0 9 | ./bulk 2
+- seq 0 9 | ./bulk 3
+- seq 0 9 | ./bulk 11
 deploy:
   provider: script
   skip_cleanup: true
