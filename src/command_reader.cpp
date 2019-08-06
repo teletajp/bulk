@@ -14,7 +14,7 @@ CommandReader::~CommandReader()
 bool CommandReader::Read()
 {
     std::string cmd;
-    if (std::getline(std::cin, cmd) && cmd != "x")
+    if (std::getline(std::cin, cmd))
     {
         box_->OnRead(std::move(cmd));
         return true;
