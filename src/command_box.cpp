@@ -108,21 +108,20 @@ bool CommandBox::Proccess()
 {
     if (!commands_.empty())
     {
-        std::unique_ptr<IPrinter<std::string>> console = std::make_unique<ConsolePrinter>();
-        std::unique_ptr<IPrinter<std::string>> file = std::make_unique<FilePrinter>("bulk" + std::to_string(start_block_time_) + ".log");
-        std::string data = "bulk: ";
-        for (const auto& el : commands_)
-        {
-            data += el;
-            if (count_ != 1)
-                data += ",";
-            else
-                data += "\n";
-            --count_;
-        }
-        console->Print(data);
-        file->Print(data);
+        if (state_ == State::wait_brace && brace_nesting_ != 0)
+            return false;
+        for(auto &pr: printers_)
+            pr->Print(start_block_time_, *this);
+        
+        Clear();
     }
     return true;
+}
+void CommandBox::Clear()
+{
+    commands_.clear();
+    state_ = State::wait_limit;
+    count_ = 0;
+    brace_nesting_ = 0;
 }
 }

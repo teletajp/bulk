@@ -1,14 +1,19 @@
 #pragma once
+#include <iostream>
 #include "iprinter.h"
 
 namespace bulk
 {
-class ConsolePrinter: public IPrinter<std::string>
+template<typename T>
+class ConsolePrinter: public IPrinter<T>
 {
 public:
-    ConsolePrinter();
-    ~ConsolePrinter();
-    void Print(const std::string& data) override;
+    ConsolePrinter(){};
+    ~ConsolePrinter(){};
+    void Print(std::time_t wt, const T& data) override
+    {
+        std::cout << data;
+    }
 
 };
 

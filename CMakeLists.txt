@@ -22,8 +22,6 @@ PRIVATE
     src/main.cpp
     src/command_box.cpp
     src/command_reader.cpp
-    src/console_printer.cpp
-    src/file_printer.cpp
 )
 
 

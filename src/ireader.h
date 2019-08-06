@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 namespace bulk
 {
 template<class T>
@@ -9,4 +10,6 @@ public:
     virtual bool OnRead(T&& data) = 0;
     virtual ~IReader() = default;
 };
+template<class T>
+using ReaderSubscriberPtr = std::unique_ptr<IReader<T>>;
 }

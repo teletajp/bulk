@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 #include "ireader.h"
-#include "iprinter.h"
+
 namespace bulk
 {
 template<class T>
